@@ -93,6 +93,10 @@ public class Player {
         if (userInput.length() == 2) {
 
             output = (userInput.substring(0, 1).matches("[0-9]") && userInput.substring(1, 2).matches("[a-zA-Z]"));
+
+            if (Integer.parseInt(userInput.substring(0, 1)) > TicTacToe.game.gridSize) {
+                output = false;
+            }
         } else if (userInput.length() == 3) {
 
             output = (userInput.substring(0, 2).matches("[1-2][0-9]") && userInput.substring(2, 3).matches("[a-zA-Z]"));
