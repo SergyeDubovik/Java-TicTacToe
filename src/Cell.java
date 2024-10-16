@@ -1,29 +1,29 @@
 public class Cell {
 
-  //This is one cell of the game grid
-  
-  public String contents;
-  public boolean empty;
-  
-  public Cell() {
-  
-    this.contents = " ";
-    this.empty = true;
-  }
-  
-  public String output() {
-  
-    return this.contents;
-  }
-  
-  public void placeMark() {
-  
-    if(TicTacToe.count%2==0){
-      this.contents = "X";
-    } else {
-      this.contents = "O";
+    //This is one cell of the game grid
+
+    public String content;
+    public boolean empty;
+
+    public Cell() {
+
+        content = " ";
+        empty = true;
     }
-    
-    this.empty = false;
-  }
+
+    public String output() {
+
+        return content;
+    }
+
+    public void placeMark() {
+
+        if (TicTacToe.count % 2 == 0) {
+            content = "X";
+        } else {
+            content = "O";
+        }
+
+        empty = false;
+    }
 }

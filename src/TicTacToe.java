@@ -1,24 +1,21 @@
 /*
  * Write a tic-tac-toe program where a human user
- * can play against  an AI bot, and where two  AI
+ * can play against an AI bot, and where two AI
  * bots can play against each other.  Write input
  * and output code so that it's intuitive for the
  * user.
  */
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.regex.*;
 
 public class TicTacToe {
 
     public static Game game;
-    public static int count = 0;
-    public static String user_input;
+    public static int count;
+    public static String userInput;
 
     private static int gameMode;
-    private static boolean valid_input;
+    private static boolean validInput;
 
     public static void main(String[] args) {
 
@@ -26,44 +23,57 @@ public class TicTacToe {
         int minimumGameSize = 2;
         int maximumGameSize = 26;
 
-        //When program starts, user is met with a welcome message
+        //When the program starts, user is met with a welcome message
         System.out.println("\n\tWelcome to this wonderful and lovely game of TicTacToe.");
         System.out.println("\n\tPlease select your Game mode.");
         System.out.println("\n\t    (1) Human vs. Computer");
         System.out.println("\n\t    (2) Computer vs. Computer");
-        user_input = getInput("\n\tWhich mode would you like to play? (1/2): ");
+        userInput = getInput("\n\tWhich mode would you like to play? (1/2): ");
 
         //Keep asking for an answer from the user until we get a 1 or a 2
-        gameMode(user_input); //gameMode() is defines below
+        gameMode(userInput); //gameMode() is defines below
 
         System.out.println("\n\tHow large of a grid would you like to use? ");
-        user_input = getInput("\n\tPlease enter an integer between " + minimumGameSize + " and " + maximumGameSize + ": ");
+        userInput = getInput("\n\tPlease enter an integer between " + minimumGameSize + " and " + maximumGameSize + ": ");
 
         //validate user input for game size
-        valid_input = false;
-        while (!valid_input) {
+        validInput = false;
+        int parsedUserInput = 0;
+        while (!validInput) {
+            try {
+                parsedUserInput = Integer.parseInt(userInput);
+            } catch (NumberFormatException e) {
+                userInput = getInput("\n\tYou must enter a number between " + minimumGameSize + " and "
+                        + maximumGameSize + ": ");
+                continue;
+            }
 
-            if (user_input.length() > 0 && (user_input.substring(0, 1).matches("[1-9]")) &&
-                    (minimumGameSize <= Integer.parseInt(user_input)) && (Integer.parseInt(user_input) <= maximumGameSize)) {
 
-                valid_input = true;
+            if (minimumGameSize <= parsedUserInput && parsedUserInput <= maximumGameSize) {
+
+                validInput = true;
 
             } else {
 
-                user_input = getInput("\n\tYou must enter a number between " + minimumGameSize + " and " + maximumGameSize + ": ");
+                userInput = getInput("\n\tYou must enter a number between " + minimumGameSize + " and "
+                        + maximumGameSize + ": ");
 
             }
         }
 
         //issue warning for game sizes larger than 15
-        if (Integer.parseInt(user_input) > 15) {
+        if (parsedUserInput > 15) {
 
-            System.out.println("\n\t!!WARNING!!\n\t!!WARNING!!  Games large than 15 will not display correctly if console width is restricted to 80 col (neither will this message)\n\t!!WARNING!!");
+            System.out.println("""
+
+                    \t!!WARNING!!
+                    \t!!WARNING!!  Games large than 15 will not display correctly if console width is restricted to 80 col (neither will this message)
+                    \t!!WARNING!!""");
             getInput("");
 
         }
 
-        gameSize = Integer.parseInt(user_input);
+        gameSize = parsedUserInput;
 
         //Create a new Game instance
         game = new Game(gameSize);
@@ -75,19 +85,18 @@ public class TicTacToe {
         if (gameMode == 1) {
 
             players[0] = new Player("Human");
-            players[1] = new Player("AI");
 
         } else {
 
             players[0] = new Player("AI");
-            players[1] = new Player("AI");
 
         }
+        players[1] = new Player("AI");
 
-        //Draw the blank board initially to show user which columns and rows to choose from
+        //Draw the blank board initially to show the user which columns and rows to choose from
         System.out.println(game.output());
 
-        //until the game is over, go back and forth between players in players array
+        //until the game is over, go back and forth between players in player array
         //output the game map to the screen after each move
         while (!game.finished) {
 
@@ -127,7 +136,7 @@ public class TicTacToe {
     //encapsulated code for input stream buffer
     public static String getInput(String prompt) {
 
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in)); // stdin = standard input
 
         System.out.print(prompt);
         System.out.flush();
@@ -144,25 +153,25 @@ public class TicTacToe {
     }
 
     //validates user input and sets the game mode
-    private static void gameMode(String user_input) {
+    private static void gameMode(String userInput) {
 
-        valid_input = false;
+        validInput = false;
 
-        while (!valid_input) {
+        while (!validInput) {
 
-            if ((user_input.length() == 1) && (user_input.substring(0, 1).matches("[1-2]"))) {
+            if ((userInput.length() == 1) && (userInput.matches("[1-2]"))) {
 
-                valid_input = true;
+                validInput = true;
 
             } else {
 
-                user_input = getInput("\n\tYou must enter '1' or '2' for the game mode: ");
+                userInput = getInput("\n\tYou must enter '1' or '2' for the game mode: ");
 
             }
         }
 
         //Set user input to gameMode for use later
-        gameMode = Integer.parseInt(user_input);
+        gameMode = Integer.parseInt(userInput);
 
     }
 }

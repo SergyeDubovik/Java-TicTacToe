@@ -1,6 +1,6 @@
 public class Game {
 
-    //This is the Game class.  It hold the current state of the game
+    //This is the Game class.  It holds the current state of the game
     //with the help of the Cell class.
 
     public boolean finished = false;
@@ -27,8 +27,8 @@ public class Game {
         return drawMap();
     }
 
-    //places an X or an O in a cell ont he game map
-    public boolean setCell(int index) {
+    //places an X or an O in a cell on the game map
+    public boolean markCell(int index) {
 
         if (grid[index].empty) {
 
@@ -50,7 +50,7 @@ public class Game {
 
         Cell[][] rows = new Cell[gridSize][gridSize];
         Cell[][] columns = new Cell[gridSize][gridSize];
-        Cell[][] diagonals = new Cell[2][gridSize]; //there are only ever two diagonals which complete a tictactoe in a square
+        Cell[][] diagonals = new Cell[2][gridSize]; //there are only ever two diagonals which complete a ticTacToe in a square
 
         //if every cell is filled, end the game
         gridFilled = true;
@@ -95,7 +95,7 @@ public class Game {
             }
         }
 
-        //if a row has all the same content and isnt empty
+        //if a row has all the same content and isn't empty,
         //then the game is over
         for (Cell[] row : rows) {
 
@@ -121,7 +121,7 @@ public class Game {
             }
         }
 
-        //if a column has all the same content and isnt empty
+        //if a column has all the same content and isn't empty
         //then the game is over
         for (Cell[] column : columns) {
 
