@@ -27,8 +27,10 @@ public class TicTacToe {
         System.out.println("\n\tWelcome to this wonderful and lovely game of TicTacToe.");
         System.out.println("\n\tPlease select your Game mode.");
         System.out.println("\n\t    (1) Human vs. Computer");
-        System.out.println("\n\t    (2) Computer vs. Computer");
-        userInput = getInput("\n\tWhich mode would you like to play? (1/2): ");
+        System.out.println("\n\t    (2) Human vs. Human");
+        System.out.println("\n\t    (3) Computer vs. Computer");
+
+        userInput = getInput("\n\tWhich mode would you like to play? (1-3): ");
 
         //Keep asking for an answer from the user until we get a 1 or a 2
         gameMode(userInput); //gameMode() is defines below
@@ -85,13 +87,19 @@ public class TicTacToe {
         if (gameMode == 1) {
 
             players[0] = new Player("Human");
+            players[1] = new Player("AI");
+
+
+        } else if (gameMode == 2) {
+            players[0] = new Player("Human");
+            players[1] = new Player("Human");
 
         } else {
 
             players[0] = new Player("AI");
+            players[1] = new Player("AI");
 
         }
-        players[1] = new Player("AI");
 
         //Draw the blank board initially to show the user which columns and rows to choose from
         System.out.println(game.output());
@@ -118,32 +126,26 @@ public class TicTacToe {
 
             System.out.println("\n\tCat's game!");
 
-        } else {
-
+        } else if (count % 2 == 1) {
             //count variable from earlier is used to decide who went last and therefore won.
-            if (count % 2 == 1) {
+            System.out.println("\n\tX's win!");
 
-                System.out.println("\n\tX's win!");
-
-            } else {
-
-                System.out.println("\n\tO's win!");
-
-            }
+        } else {
+            System.out.println("\n\tO's win!");
         }
     }
 
     //encapsulated code for input stream buffer
     public static String getInput(String prompt) {
 
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in)); // stdin = standard input
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)); // stdIn = standard input
 
         System.out.print(prompt);
         System.out.flush();
 
         try {
 
-            return stdin.readLine();
+            return stdIn.readLine();
 
         } catch (Exception e) {
 
@@ -159,13 +161,13 @@ public class TicTacToe {
 
         while (!validInput) {
 
-            if ((userInput.length() == 1) && (userInput.matches("[1-2]"))) {
+            if ((userInput.length() == 1) && (userInput.matches("[1-3]"))) {
 
                 validInput = true;
 
             } else {
 
-                userInput = getInput("\n\tYou must enter '1' or '2' for the game mode: ");
+                userInput = getInput("\n\tYou must enter number from '1' to '3' for the game mode: ");
 
             }
         }

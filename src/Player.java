@@ -2,7 +2,7 @@ public class Player {
 
     //player makes moves and can be human or AI
 
-    private String type; // whether the player is human or AI
+    private final String type; // whether the player is human or AI
     private int index;
     private int column;
     private int row;
@@ -24,7 +24,7 @@ public class Player {
 
             //let user know that AI is going
             System.out.print("\tThe computer will now make a move..");
-            delay(1000, TicTacToe.game.gridSize); //take a second to go to make it appear as if computer is thinking
+            delay(TicTacToe.game.gridSize); //take a second to go to make it appear as if computer is thinking
 
             while (turn) {
                 //AI selects a random empty cell and places the corresponding mark
@@ -118,11 +118,11 @@ public class Player {
     }
 
     //encapsulated code for AI delay behavior
-    private static void delay(int amount, int gameSize) {
+    private static void delay(int gameSize) {
 
         try {
 
-            Thread.sleep(amount * 3 / (gameSize * gameSize));
+            Thread.sleep(1000 * 3L / ((long) gameSize * gameSize));
 
         } catch (InterruptedException ex) {
 
@@ -132,6 +132,6 @@ public class Player {
 
     //converts the letter input for row/column selection into a usable number
     private static int letterToNumber(String str) {
-        return ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(str)) % 26 + 1;
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(str) % 26 + 1;
     }
 }
