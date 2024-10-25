@@ -86,18 +86,18 @@ public class TicTacToe {
         //set players to AI or Human depending on game mode
         if (gameMode == 1) {
 
-            players[0] = new Player("Human");
-            players[1] = new Player("AI");
+            players[0] = new HumanPlayer();
+            players[1] = new RandomComputerPlayer();
 
 
         } else if (gameMode == 2) {
-            players[0] = new Player("Human");
-            players[1] = new Player("Human");
+            players[0] = new HumanPlayer();
+            players[1] = new HumanPlayer();
 
         } else {
 
-            players[0] = new Player("AI");
-            players[1] = new Player("AI");
+            players[0] = new RandomComputerPlayer();
+            players[1] = new RandomComputerPlayer();
 
         }
 
